@@ -18,10 +18,8 @@ the social listening jobs performed this night (cron window 04:00–05:00 UTC; j
   Job started / Job done / Job failed counts, 03:30–07:10 UTC.
 - Keyword digest (for the Slack message):
   - Total keywords tracked, and active keywords (have ≥1 KeywordListeners).
-  - New keywords added in the last 24h: keyword, workspace name + id, estimated API spend so far
-    (perCost) with per-platform split (Twitter / Reddit / TikTok / YouTube), added timestamp UTC.
+  - New keywords added in the last 24h: keyword name + estimated API spend so far (perCost).
   - Keywords with no apiCosts yet (not synced / zero spend) — list them by name.
-  - Top 10 keywords by perCost across all tracked keywords (snapshot): keyword, workspace, perCost.
   - Monthly spend: month-to-date total vs previous month total.
 
 Let `<DATE>` be the report date in UTC (`YYYY-MM-DD`), `<YYYY>` the year, and `<mmm>` the
@@ -65,53 +63,28 @@ deployed via GitHub Pages at `https://albert-andrei.github.io/social-listening-r
 Send via the `user-slack` MCP using `slack_send_message` with `channel_id: "U09A81M0N07"` (DM).
 Do NOT upload or paste the HTML file — the report is delivered as the GitHub Pages link.
 
-Slack does not render markdown tables — use Slack mrkdwn: `*bold*` section headers with a leading
-emoji, and tables as fixed-width aligned text inside triple-backtick code blocks (pad columns with
-spaces so they align in monospace). Stay under ~4000 chars; if needed, shorten workspace ids /
-notes first, never the numbers.
+The message must be SHORT and scannable — a quick pulse check, not a report. All detail
+(per-platform mentions, cost breakdown, job pipeline, cron runs, vendor split, keyword tables)
+lives ONLY in the HTML report behind the link. Hard rules:
 
-The message is a keyword digest, NOT a copy of the report. Do NOT include the per-platform
-mentions table, the cost breakdown table, the job pipeline table, or the cron-run bullets in the
-Slack message — that detail lives only in the HTML report behind the link. Do NOT append any
-footer after the report link (no plan-file paths, no "Sent using …", no signatures).
+- Max ~8 lines, target under 700 characters. No code-block tables. No section headers.
+- One line per idea, Slack mrkdwn (`*bold*`, `•` bullets, emoji).
+- The "Needs attention" line appears ONLY when something actually needs a human look (failed
+  jobs, stuck keywords, keywords with no apiCosts, odd cron timing, skipped/invalid vendor
+  records). On a clean run, omit it entirely.
+- Do NOT append any footer after the report link (no plan-file paths, no "Sent using …",
+  no signatures).
 
 Message shape (fill in real numbers):
 
 ```
-🌙 *Social Listening — Night Sync Report (<DATE>)*
-window: cron 04:00–05:00 UTC · job logs 03:30–07:10 UTC
-
-*Summary*
-✅ Clean run — zero failures        ← or 🚨 verdict if anything failed
-• Keywords synced: N
-• Jobs spawned + completed: N
-• Jobs failed / cancelled: N
-• New mentions inserted: N
-• API spend (today, UTC): $X.XX
-
-*Keywords*
-• Total keywords: N
-• Active keywords: N (have ≥1 KeywordListeners)
-• New keywords added (24h): N
-• Estimated API spend, new keywords (24h): $X.XX
-• Monthly spend: $X.XX this month (MTD) vs $Y.YY last month
-
-*Needs attention*
-• N keywords have no apiCosts yet (not synced / zero spend): kw1, kw2, kw3
-• any other anomaly worth a human look (failed jobs, stuck keywords, odd cron timing,
-  skipped/invalid vendor records) — or "Nothing — clean run" when there is none
-
-📋 *New keywords (24h)*
-```(code block: Keyword | Workspace | perCost | Twitter | Reddit | TikTok | YouTube | Added UTC —
-one row per keyword added in the last 24h; a single "none" line if there were no new keywords)```
-
-💎 *Top 10 keywords by price (all tracked, snapshot)*
-```(code block: # | Keyword | Workspace | perCost — 10 rows)```
-
-🏦 *Spend by vendor*
-• Bright Data $X.XX (NN%) · X API $X.XX (NN%) · OpenAI $X.XX (N%)
-
-🔗 Full visual report: https://albert-andrei.github.io/social-listening-reports/<YYYY>/<mmm>/<DATE>/
+🌙 *Social Listening — Night Sync (<DATE>)*
+✅ Clean run — zero failures        ← or 🚨 one line saying exactly what broke
+• Synced N of N tracked keywords (N active) · N jobs, 0 failed
+• N new mentions · spend today $X.XX · MTD $X.XX (last month $Y.YY)
+• New keywords (24h): N — name ($X.XX), name ($X.XX)        ← or "none"
+⚠️ N keywords with no apiCosts yet: kw1, kw2, kw3        ← only when needed, else omit
+🔗 Full report: https://albert-andrei.github.io/social-listening-reports/<YYYY>/<mmm>/<DATE>/
 ```
 
 ## Constraints
@@ -126,7 +99,5 @@ one row per keyword added in the last 24h; a single "none" line if there were no
    theme, all 3 charts as inline SVG, all 3 tables present, numbers match the gathered data.
 2. Root `index.html` links to the new report.
 3. The GitHub Pages URL returns HTTP 200 and renders the report.
-4. Slack DM sent to U09A81M0N07 with emoji headers, the keyword digest (Summary, Keywords,
-   Needs attention, New keywords table, Top 10 by price table, Spend by vendor), and the Pages
-   link — and none of the report's operational tables (platform mentions / cost breakdown / job
-   pipeline / cron runs) duplicated in the message, no footer after the link.
+4. Slack DM sent to U09A81M0N07: max ~8 lines, no code-block tables, verdict + key numbers +
+   new keywords + needs-attention (only if real) + the Pages link, no footer after the link.
