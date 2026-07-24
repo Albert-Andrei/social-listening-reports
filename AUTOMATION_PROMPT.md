@@ -16,6 +16,13 @@ the social listening jobs performed this night (cron window 04:00–05:00 UTC; j
 - Spend by vendor: Bright Data / X API / OpenAI.
 - Job pipeline: spawned / completed / failed / cancelled per job type, from Mezmo `[MiniJob]`
   Job started / Job done / Job failed counts, 03:30–07:10 UTC.
+- Keyword digest (for the Slack message):
+  - Total keywords tracked, and active keywords (have ≥1 KeywordListeners).
+  - New keywords added in the last 24h: keyword, workspace name + id, estimated API spend so far
+    (perCost) with per-platform split (Twitter / Reddit / TikTok / YouTube), added timestamp UTC.
+  - Keywords with no apiCosts yet (not synced / zero spend) — list them by name.
+  - Top 10 keywords by perCost across all tracked keywords (snapshot): keyword, workspace, perCost.
+  - Monthly spend: month-to-date total vs previous month total.
 
 Let `<DATE>` be the report date in UTC (`YYYY-MM-DD`), `<YYYY>` the year, and `<mmm>` the
 lowercase 3-letter month (e.g. `jul`).
@@ -60,8 +67,13 @@ Do NOT upload or paste the HTML file — the report is delivered as the GitHub P
 
 Slack does not render markdown tables — use Slack mrkdwn: `*bold*` section headers with a leading
 emoji, and tables as fixed-width aligned text inside triple-backtick code blocks (pad columns with
-spaces so they align in monospace). Stay under ~4000 chars; if needed, trim the notes columns from
-tables, never the numbers.
+spaces so they align in monospace). Stay under ~4000 chars; if needed, shorten workspace ids /
+notes first, never the numbers.
+
+The message is a keyword digest, NOT a copy of the report. Do NOT include the per-platform
+mentions table, the cost breakdown table, the job pipeline table, or the cron-run bullets in the
+Slack message — that detail lives only in the HTML report behind the link. Do NOT append any
+footer after the report link (no plan-file paths, no "Sent using …", no signatures).
 
 Message shape (fill in real numbers):
 
@@ -77,22 +89,24 @@ window: cron 04:00–05:00 UTC · job logs 03:30–07:10 UTC
 • New mentions inserted: N
 • API spend (today, UTC): $X.XX
 
+*Keywords*
+• Total keywords: N
+• Active keywords: N (have ≥1 KeywordListeners)
+• New keywords added (24h): N
+• Estimated API spend, new keywords (24h): $X.XX
+• Monthly spend: $X.XX this month (MTD) vs $Y.YY last month
+
 *Needs attention*
-• Nothing — no failed/cancelled/timed-out jobs, no keywords stuck in `syncing`
-  ← or list every anomaly: failed jobs, stuck keywords, missing costs, cron misses
+• N keywords have no apiCosts yet (not synced / zero spend): kw1, kw2, kw3
+• any other anomaly worth a human look (failed jobs, stuck keywords, odd cron timing,
+  skipped/invalid vendor records) — or "Nothing — clean run" when there is none
 
-📊 *Mentions per platform*
-```(code block: Platform | Gathered | Inserted | Rate | Kw | Calls + Total row)```
+📋 *New keywords (24h)*
+```(code block: Keyword | Workspace | perCost | Twitter | Reddit | TikTok | YouTube | Added UTC —
+one row per keyword added in the last 24h; a single "none" line if there were no new keywords)```
 
-💰 *Cost breakdown*
-```(code block: Source | Cost | Share | $/mention + Total row)```
-
-⚙️ *Job pipeline*
-```(code block: Job type | Spawned | Completed | Failed | Cancelled)```
-
-🕐 *Cron runs*
-• socialListeningTopicSync — 04:00 UTC, X.Xs, { keywordsProcessed: N }
-• socialListeningBrandSync — 05:00 UTC, X.Xs, { keywordsProcessed: N }
+💎 *Top 10 keywords by price (all tracked, snapshot)*
+```(code block: # | Keyword | Workspace | perCost — 10 rows)```
 
 🏦 *Spend by vendor*
 • Bright Data $X.XX (NN%) · X API $X.XX (NN%) · OpenAI $X.XX (N%)
@@ -112,4 +126,7 @@ window: cron 04:00–05:00 UTC · job logs 03:30–07:10 UTC
    theme, all 3 charts as inline SVG, all 3 tables present, numbers match the gathered data.
 2. Root `index.html` links to the new report.
 3. The GitHub Pages URL returns HTTP 200 and renders the report.
-4. Slack DM sent to U09A81M0N07 with emoji headers, aligned code-block tables, and the Pages link.
+4. Slack DM sent to U09A81M0N07 with emoji headers, the keyword digest (Summary, Keywords,
+   Needs attention, New keywords table, Top 10 by price table, Spend by vendor), and the Pages
+   link — and none of the report's operational tables (platform mentions / cost breakdown / job
+   pipeline / cron runs) duplicated in the message, no footer after the link.
