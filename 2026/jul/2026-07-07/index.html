@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Listening Night Sync — Jul 7, 2026</title>
+<style>
+  :root {
+    --bg: #1a1a1a;
+    --card: #212121;
+    --border: #333333;
+    --text: #e6e6e6;
+    --muted: #9a9a9a;
+    --blue: #58a6ff;
+    --green: #3fb950;
+    --green-text: #7ee787;
+    --green-bg: #1b2d1f;
+    --green-border: #2ea043;
+    --amber: #d29922;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    padding: 40px 24px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+  h2 { font-size: 18px; font-weight: 600; margin: 36px 0 14px; }
+  .callout {
+    background: var(--green-bg);
+    border: 1px solid var(--green-border);
+    color: var(--green-text);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .stat {
+    flex: 1 1 160px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .stat .num { font-size: 26px; font-weight: 700; }
+  .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .cards { display: flex; gap: 12px; flex-wrap: wrap; }
+  .card {
+    flex: 1 1 380px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .card .name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; font-weight: 600; color: var(--blue); }
+  .card .meta { font-size: 12px; color: var(--muted); margin: 4px 0 8px; }
+  .card .desc { font-size: 13px; }
+  .card code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+  .caption { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 700; border-top: 1px solid var(--border); }
+  .chart {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 8px;
+  }
+  svg { display: block; width: 100%; height: auto; }
+  svg text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Social Listening Night Sync — Jul 7, 2026</h1>
+  <div class="subtitle">Cron window 04:00–05:00 UTC · Sources: production MongoDB (KeywordMentions, KeywordDailyMetrics, Keywords) + Mezmo job logs (03:30–07:10 UTC)</div>
+
+  <div class="callout">✅ Clean run — zero failures. All 1,183 spawned jobs started and completed. No failed, cancelled, or timed-out social listening jobs in the window, and no keywords are stuck in a <code>syncing</code> state.</div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">91</div><div class="lbl">Keywords synced</div></div>
+    <div class="stat"><div class="num">1,183</div><div class="lbl">Jobs spawned + completed</div></div>
+    <div class="stat"><div class="num">0</div><div class="lbl">Jobs failed / cancelled</div></div>
+    <div class="stat"><div class="num">4,456</div><div class="lbl">New mentions inserted</div></div>
+    <div class="stat"><div class="num">$21.60</div><div class="lbl">API spend (today, UTC)</div></div>
+  </div>
+
+  <h2>Cron runs</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="name">socialListeningTopicSync</div>
+      <div class="meta">04:00 UTC · duration 2.9s</div>
+      <div class="desc">Picked up 17 stale topic keywords (topics re-sync weekly, 7d freshness). Result <code>{ keywordsProcessed: 17 }</code></div>
+    </div>
+    <div class="card">
+      <div class="name">socialListeningBrandSync</div>
+      <div class="meta">05:00 UTC · duration 2.8s</div>
+      <div class="desc">Picked up 74 brand keywords (brands re-sync daily, 24h freshness). Result <code>{ keywordsProcessed: 74 }</code></div>
+    </div>
+  </div>
+  <p class="caption">Everything eligible spawned; all 91 keywords got lastSyncedAt bumped. 5 keywords have never synced but have no workspace listeners, so crons correctly skip them. Staging fired both crons with 0 keywords each.</p>
+
+  <h2>Mentions: gathered vs inserted per platform</h2>
+  <div class="chart">
+    <svg viewBox="0 0 720 320" role="img" aria-label="Grouped bar chart of mentions gathered vs inserted per platform">
+      <!-- legend -->
+      <rect x="25" y="8" width="12" height="12" rx="2" fill="#58a6ff"/>
+      <text x="43" y="18" font-size="12" fill="#e6e6e6">Gathered</text>
+      <rect x="120" y="8" width="12" height="12" rx="2" fill="#3fb950"/>
+      <text x="138" y="18" font-size="12" fill="#e6e6e6">Inserted</text>
+      <!-- baseline -->
+      <line x1="20" y1="280" x2="700" y2="280" stroke="#333333" stroke-width="1"/>
+      <!-- Facebook -->
+      <rect x="43" y="173" width="34" height="107" rx="2" fill="#58a6ff"/>
+      <rect x="81" y="223" width="34" height="57" rx="2" fill="#3fb950"/>
+      <text x="60" y="167" font-size="11" fill="#e6e6e6" text-anchor="middle">2,054</text>
+      <text x="98" y="217" font-size="11" fill="#e6e6e6" text-anchor="middle">1,093</text>
+      <text x="79" y="300" font-size="12" fill="#9a9a9a" text-anchor="middle">Facebook</text>
+      <!-- Instagram -->
+      <rect x="158" y="162" width="34" height="118" rx="2" fill="#58a6ff"/>
+      <rect x="196" y="223" width="34" height="57" rx="2" fill="#3fb950"/>
+      <text x="175" y="156" font-size="11" fill="#e6e6e6" text-anchor="middle">2,257</text>
+      <text x="213" y="217" font-size="11" fill="#e6e6e6" text-anchor="middle">1,090</text>
+      <text x="194" y="300" font-size="12" fill="#9a9a9a" text-anchor="middle">Instagram</text>
+      <!-- YouTube -->
+      <rect x="273" y="237" width="34" height="43" rx="2" fill="#58a6ff"/>
+      <rect x="311" y="238" width="34" height="42" rx="2" fill="#3fb950"/>
+      <text x="290" y="231" font-size="11" fill="#e6e6e6" text-anchor="middle">820</text>
+      <text x="328" y="232" font-size="11" fill="#e6e6e6" text-anchor="middle">813</text>
+      <text x="309" y="300" font-size="12" fill="#9a9a9a" text-anchor="middle">YouTube</text>
+      <!-- Twitter/X -->
+      <rect x="388" y="246" width="34" height="34" rx="2" fill="#58a6ff"/>
+      <rect x="426" y="246" width="34" height="34" rx="2" fill="#3fb950"/>
+      <text x="405" y="240" font-size="11" fill="#e6e6e6" text-anchor="middle">657</text>
+      <text x="443" y="240" font-size="11" fill="#e6e6e6" text-anchor="middle">657</text>
+      <text x="424" y="300" font-size="12" fill="#9a9a9a" text-anchor="middle">Twitter/X</text>
+      <!-- Reddit -->
+      <rect x="503" y="60" width="34" height="220" rx="2" fill="#58a6ff"/>
+      <rect x="541" y="254" width="34" height="26" rx="2" fill="#3fb950"/>
+      <text x="520" y="54" font-size="11" fill="#e6e6e6" text-anchor="middle">4,207</text>
+      <text x="558" y="248" font-size="11" fill="#e6e6e6" text-anchor="middle">488</text>
+      <text x="539" y="300" font-size="12" fill="#9a9a9a" text-anchor="middle">Reddit</text>
+      <!-- TikTok -->
+      <rect x="618" y="161" width="34" height="119" rx="2" fill="#58a6ff"/>
+      <rect x="656" y="264" width="34" height="16" rx="2" fill="#3fb950"/>
+      <text x="635" y="155" font-size="11" fill="#e6e6e6" text-anchor="middle">2,275</text>
+      <text x="673" y="258" font-size="11" fill="#e6e6e6" text-anchor="middle">315</text>
+      <text x="654" y="300" font-size="12" fill="#9a9a9a" text-anchor="middle">TikTok</text>
+    </svg>
+  </div>
+  <p class="caption">Gathered = billed API records from today's KeywordDailyMetrics cost buckets; inserted = new KeywordMentions createdAt ≥ 03:30 UTC.</p>
+
+  <table>
+    <thead>
+      <tr><th>Platform</th><th class="num">Gathered</th><th class="num">Inserted</th><th class="num">Insert rate</th><th class="num">Keywords w/ new mentions</th><th class="num">API calls</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Facebook</td><td class="num">2,054</td><td class="num">1,093</td><td class="num">53%</td><td class="num">59</td><td class="num">353</td><td>SERP discovery + scrape</td></tr>
+      <tr><td>Instagram</td><td class="num">2,257</td><td class="num">1,090</td><td class="num">48%</td><td class="num">55</td><td class="num">373</td><td>SERP discovery + scrape</td></tr>
+      <tr><td>YouTube</td><td class="num">820</td><td class="num">813</td><td class="num">99%</td><td class="num">49</td><td class="num">91</td><td>publishedAfter cursor</td></tr>
+      <tr><td>Twitter/X</td><td class="num">657</td><td class="num">657</td><td class="num">100%</td><td class="num">30</td><td class="num">182</td><td>since_id cursor (91 search + 91 counts calls)</td></tr>
+      <tr><td>Reddit</td><td class="num">4,207</td><td class="num">488</td><td class="num">12%</td><td class="num">21</td><td class="num">91</td><td>3 sorts x 100 posts, heavy dedup</td></tr>
+      <tr><td>TikTok</td><td class="num">2,275</td><td class="num">315</td><td class="num">14%</td><td class="num">57</td><td class="num">91</td><td>30 posts/search, no date filter</td></tr>
+      <tr class="total"><td>Total</td><td class="num">12,270</td><td class="num">4,456</td><td class="num">36%</td><td class="num">91 synced</td><td class="num">1,181</td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="caption">Reddit/TikTok low insert rates are expected (overlapping sorts / no date filter → mostly re-upserts of known mentions). Twitter and YouTube use incremental cursors so nearly everything fetched is new.</p>
+
+  <h2>Cost breakdown per platform</h2>
+  <div class="chart">
+    <svg viewBox="0 0 680 252" role="img" aria-label="Horizontal bar chart of API cost per platform">
+      <text x="130" y="24" font-size="12" fill="#e6e6e6" text-anchor="end">Reddit</text>
+      <rect x="140" y="10" width="420" height="20" rx="2" fill="#d29922"/>
+      <text x="568" y="24" font-size="11" fill="#e6e6e6">$6.31</text>
+      <text x="130" y="58" font-size="12" fill="#e6e6e6" text-anchor="end">Twitter/X</text>
+      <rect x="140" y="44" width="280" height="20" rx="2" fill="#d29922"/>
+      <text x="428" y="58" font-size="11" fill="#e6e6e6">$4.20</text>
+      <text x="130" y="92" font-size="12" fill="#e6e6e6" text-anchor="end">Instagram</text>
+      <rect x="140" y="78" width="263" height="20" rx="2" fill="#d29922"/>
+      <text x="411" y="92" font-size="11" fill="#e6e6e6">$3.95</text>
+      <text x="130" y="126" font-size="12" fill="#e6e6e6" text-anchor="end">Facebook</text>
+      <rect x="140" y="112" width="240" height="20" rx="2" fill="#d29922"/>
+      <text x="388" y="126" font-size="11" fill="#e6e6e6">$3.61</text>
+      <text x="130" y="160" font-size="12" fill="#e6e6e6" text-anchor="end">TikTok</text>
+      <rect x="140" y="146" width="227" height="20" rx="2" fill="#d29922"/>
+      <text x="375" y="160" font-size="11" fill="#e6e6e6">$3.41</text>
+      <text x="130" y="194" font-size="12" fill="#e6e6e6" text-anchor="end">OpenAI sentiment</text>
+      <rect x="140" y="180" width="8" height="20" rx="2" fill="#d29922"/>
+      <text x="156" y="194" font-size="11" fill="#e6e6e6">$0.12</text>
+      <text x="130" y="228" font-size="12" fill="#e6e6e6" text-anchor="end">YouTube</text>
+      <rect x="140" y="214" width="2" height="20" rx="1" fill="#d29922"/>
+      <text x="150" y="228" font-size="11" fill="#e6e6e6">$0.00</text>
+    </svg>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Source</th><th class="num">Cost</th><th class="num">Share</th><th class="num">Cost / inserted mention</th><th>Pricing model</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Reddit</td><td class="num">$6.31</td><td class="num">29%</td><td class="num">$0.0129</td><td>$1.50 / 1k Bright Data records (4,207 records)</td></tr>
+      <tr><td>Twitter/X</td><td class="num">$4.20</td><td class="num">19%</td><td class="num">$0.0064</td><td>$0.005 / tweet (657) + $0.01 / counts call (91)</td></tr>
+      <tr><td>Instagram</td><td class="num">$3.95</td><td class="num">18%</td><td class="num">$0.0036</td><td>$1.50 CPM SERP (373 calls) + $1.50 / 1k scrape records (2,257)</td></tr>
+      <tr><td>Facebook</td><td class="num">$3.61</td><td class="num">17%</td><td class="num">$0.0033</td><td>$1.50 CPM SERP (353 calls) + $1.50 / 1k scrape records (2,054)</td></tr>
+      <tr><td>TikTok</td><td class="num">$3.41</td><td class="num">16%</td><td class="num">$0.0108</td><td>$1.50 / 1k Bright Data records (2,275 records)</td></tr>
+      <tr><td>OpenAI sentiment</td><td class="num">$0.12</td><td class="num">1%</td><td class="num">—</td><td>~$0.000028 / mention analyzed (4,456 mentions)</td></tr>
+      <tr><td>YouTube</td><td class="num">$0.00</td><td class="num">0%</td><td class="num">—</td><td>Free tier (820 records, 91 calls)</td></tr>
+      <tr class="total"><td>Total</td><td class="num">$21.60</td><td class="num">100%</td><td class="num">$0.0048</td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="caption">Today's UTC costs.&lt;platform&gt; buckets on KeywordDailyMetrics.</p>
+
+  <h2>Spend by vendor</h2>
+  <div class="chart">
+    <svg viewBox="0 0 680 116" role="img" aria-label="Horizontal bar chart of spend by vendor">
+      <text x="130" y="24" font-size="12" fill="#e6e6e6" text-anchor="end">Bright Data</text>
+      <rect x="140" y="10" width="420" height="20" rx="2" fill="#58a6ff"/>
+      <text x="568" y="24" font-size="11" fill="#e6e6e6">$17.28</text>
+      <text x="130" y="58" font-size="12" fill="#e6e6e6" text-anchor="end">X API</text>
+      <rect x="140" y="44" width="102" height="20" rx="2" fill="#58a6ff"/>
+      <text x="250" y="58" font-size="11" fill="#e6e6e6">$4.20</text>
+      <text x="130" y="92" font-size="12" fill="#e6e6e6" text-anchor="end">OpenAI</text>
+      <rect x="140" y="78" width="3" height="20" rx="1" fill="#58a6ff"/>
+      <text x="151" y="92" font-size="11" fill="#e6e6e6">$0.12</text>
+    </svg>
+  </div>
+  <p class="caption">Bright Data $17.28 (80%, backs Reddit + TikTok scrapers and the Facebook/Instagram SERP-and-scrape pipelines), X API $4.20 (19%), OpenAI $0.12 (1%).</p>
+
+  <h2>Job pipeline</h2>
+  <table>
+    <thead>
+      <tr><th>Job type</th><th class="num">Spawned</th><th class="num">Completed</th><th class="num">Failed</th><th class="num">Cancelled</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>socialListeningSearch* (6 platforms)</td><td class="num">546</td><td class="num">546</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr><td>analyzeMentionSentiments</td><td class="num">546</td><td class="num">546</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr><td>socialListeningComputeMetrics</td><td class="num">91</td><td class="num">91</td><td class="num">0</td><td class="num">0</td></tr>
+    </tbody>
+  </table>
+  <p class="caption">Sentiment analysis classified all 4,456 new mentions (OpenAI records for today exactly match the insert count) and every keyword's daily metrics were recomputed. Source: Mezmo [MiniJob] Job started / Job done / Job failed counts, 03:30–07:10 UTC.</p>
+
+</div>
+</body>
+</html>
