@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Listening Night Sync &mdash; Sep 11, 2026</title>
+<style>
+
+
+  :root {
+    --bg: #1a1a1a;
+    --card: #212121;
+    --border: #333333;
+    --text: #e6e6e6;
+    --muted: #9a9a9a;
+    --blue: #58a6ff;
+    --green: #3fb950;
+    --green-text: #7ee787;
+    --green-bg: #1b2d1f;
+    --green-border: #2ea043;
+    --amber: #d29922;
+    --red-text: #ff9a92;
+    --red-bg: #2d1a1a;
+    --red-border: #a0392e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    padding: 40px 24px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+  h2 { font-size: 18px; font-weight: 600; margin: 36px 0 14px; }
+  .callout {
+    background: var(--green-bg);
+    border: 1px solid var(--green-border);
+    color: var(--green-text);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .stat {
+    flex: 1 1 160px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .stat .num { font-size: 26px; font-weight: 700; }
+  .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .cards { display: flex; gap: 12px; flex-wrap: wrap; }
+  .card {
+    flex: 1 1 380px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .card .name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; font-weight: 600; color: var(--blue); }
+  .card .meta { font-size: 12px; color: var(--muted); margin: 4px 0 8px; }
+  .card .desc { font-size: 13px; }
+  .card code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+  .caption { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 700; border-top: 1px solid var(--border); }
+  .chart {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 8px;
+  }
+  svg { display: block; width: 100%; height: auto; }
+  svg text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .callout.warn {
+    background: #2b2410;
+    border-color: #8a6d1f;
+    color: #f0c669;
+  }
+  .callout.bad {
+    background: var(--red-bg);
+    border-color: var(--red-border);
+    color: var(--red-text);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <h1>Social Listening Night Sync &mdash; Sep 11, 2026</h1>
+  <div class="subtitle">Cron window 03:30&ndash;05:00 UTC &middot; Sources: Mezmo production job logs (03:30&ndash;07:10 UTC). MongoDB MCP was not connected this run, so per-platform volumes are exact distributions of Mezmo search-job <code>result.count</code> and sentiment <code>analyzed</code> values, and costs are derived from those volumes at standard vendor pricing rather than read from <code>KeywordDailyMetrics</code>.</div>
+
+  <div class="callout bad">&#128680; <strong>Bright Data&rsquo;s collapse is not a blip &mdash; night two, and it got worse.</strong> The pipeline itself was again mechanically perfect: <strong>1,768 jobs spawned, 1,768 completed, zero failed, zero cancelled</strong>, and across 104 keywords the <code>socialListening</code> token matched <strong>2,004 INFO lines, 0 WARN and 0 ERROR</strong>. Collection was not. <strong>Bright Data&rsquo;s six platforms returned 254 records between them &mdash; 2.44 per keyword, against 7.9 last night and 50.2 on Sep&nbsp;9</strong>, a 95% fall from the last healthy night. <strong>The Web canary is now 10 records, 0.10 per keyword, against a healthy band of 11.6&ndash;13.9</strong>; every Bright Data platform fell again on top of last night&rsquo;s fall &mdash; Facebook &minus;82%, Reddit &minus;74%, TikTok &minus;73%, Instagram &minus;72%, Web &minus;64%, LinkedIn &minus;61%. <strong>The two non-Bright-Data vendors remain healthy</strong> &mdash; Twitter/X gathered 1,071 (10.3/kw) and YouTube 1,058 (10.2/kw), both in band &mdash; which localises the fault to one vendor for the second night running. <strong>And still nothing is logged:</strong> zero failed search jobs, zero invalid-schema skips, all sixteen per-platform queries returning exactly 104 completions. The jobs call the API, get almost nothing and record success. <strong>The rest of the night was healthy.</strong> The brand cohort actually grew 90&nbsp;&rarr;&nbsp;97 with <strong>86 of 90 kept (96%, the best retention of the series)</strong>; the headline drop to 104 keywords is topic rotation off the 7-day clock, not loss. The entitlement WARN storm stayed silent for a <strong>third</strong> consecutive day, and the sentiment backlog drain continued for a third night, clearing 6,730 mentions against 2,383 gathered. Both production crons ran on time, staging correctly processed nothing, and no keyword was left in a <code>syncing</code> state. <strong>Action: this is now a two-night vendor incident, not an anomaly &mdash; check the Bright Data account for quota, billing or zone-suspension state today. Every night it continues, the fixed per-keyword SERP calls bill in full for almost no data.</strong></div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">104</div><div class="lbl">Keywords synced</div></div>
+    <div class="stat"><div class="num">1,768 / 1,768</div><div class="lbl">Jobs spawned / completed</div></div>
+    <div class="stat"><div class="num">0 / 0</div><div class="lbl">Jobs failed / cancelled</div></div>
+    <div class="stat"><div class="num">6,730</div><div class="lbl">New mentions inserted</div></div>
+    <div class="stat"><div class="num">$7.43</div><div class="lbl">API spend (today, UTC, est.)</div></div>
+  </div>
+
+  <h2>Cron runs</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="name">socialListeningBrandSync</div>
+      <div class="meta">03:30 UTC (production) &middot; duration 80.0s</div>
+      <div class="desc">Picked up 97 keywords (brands re-sync daily, 24h freshness) &mdash; 86 returning from last night plus 11 back after a night or more away. Result <code>{ keywordsProcessed: 97 }</code></div>
+    </div>
+    <div class="card">
+      <div class="name">socialListeningTopicSync</div>
+      <div class="meta">04:00 UTC (production) &middot; duration 56.9s</div>
+      <div class="desc">Released 7 keywords (topics re-sync weekly, 7d freshness) &mdash; all 7 last touched by the Sep&nbsp;4 topic cron, so the cohort came due together on the 7-day boundary. Result <code>{ keywordsProcessed: 7 }</code></div>
+    </div>
+  </div>
+  <p class="caption">Read off the <code>endDate</code> stamps on the 104 search-job inputs: <strong>97 keywords carried 03:30:56.014, the brand cron stamp, and 7 carried the 04:00:56.174 topic stamp &mdash; nothing carried a third stamp</strong>. So <strong>104 keywords ran and the two crons together report 104</strong>, an exact match for the second night running, with no on-demand backfills mixed in. <code>socialListeningComputeMetrics</code> corroborates it for free: it upserted <strong>249</strong> day buckets (56&times;2, 32&times;1, 7&times;8, 5&times;5, 4&times;6), the <strong>seven 8-day buckets line up exactly with the seven topic keywords</strong> on reopened 7-day windows, and there is <strong>no 31-day bucket anywhere</strong>, which is the signature a brand-new keyword&rsquo;s 30-day initial backfill would leave. Both staleness rules behaved as specified. The brand run released 97 keywords under the 24h rule, and their last-sync stamps break down as <strong>86 re-synced in last night&rsquo;s run, 9 stale since Sep&nbsp;6, 1 back after missing a night, and 1 last touched by a daytime on-demand sync</strong>. The topic run released 7 under the 7d rule, and <strong>every one was last touched by the Sep&nbsp;4 topic cron</strong>, exactly seven days earlier &mdash; 5 carry a real Sep&nbsp;4 sync stamp and 2 carry the exact seven-day default backfill, identical to the millisecond, of a keyword that has never had a nightly topic sync. The keywords <em>not</em> picked up are the ones the rules exclude: a brand keyword synced less than 24h ago and a topic keyword synced less than 7 days ago are both skipped, which is why last night&rsquo;s 27 topic keywords are almost entirely absent tonight. One keyword ran with <code>extendedFetchLimits: true</code>. Staging fired both jobs and correctly processed nothing (<code>{ keywordsProcessed: 0 }</code> at 04:00:01 and 05:00:00), so there was no cross-environment double-sync.</p>
+
+  <h2>Mentions: gathered vs inserted per platform</h2>
+  <div class="chart">
+      <svg viewBox="0 0 720 320" role="img" aria-label="Grouped bar chart of mentions gathered vs inserted per platform">
+      <line x1="40" y1="280" x2="700" y2="280" stroke="#3a3a3a" stroke-width="1"/>
+      <rect x="45" y="278" width="18" height="2" fill="#58a6ff"/>
+      <text x="54" y="272" fill="#9a9a9a" font-size="10" text-anchor="middle">13</text>
+      <rect x="67" y="258" width="18" height="22" fill="#3fb950"/>
+      <text x="76" y="252" fill="#9a9a9a" font-size="10" text-anchor="middle">264</text>
+      <text x="65" y="298" fill="#9a9a9a" font-size="11" text-anchor="middle">Facebook</text>
+      <rect x="135" y="273" width="18" height="7" fill="#58a6ff"/>
+      <text x="144" y="267" fill="#9a9a9a" font-size="10" text-anchor="middle">80</text>
+      <rect x="157" y="227" width="18" height="53" fill="#3fb950"/>
+      <text x="166" y="221" fill="#9a9a9a" font-size="10" text-anchor="middle">639</text>
+      <text x="155" y="298" fill="#9a9a9a" font-size="11" text-anchor="middle">Instagram</text>
+      <rect x="225" y="192" width="18" height="88" fill="#58a6ff"/>
+      <text x="234" y="186" fill="#9a9a9a" font-size="10" text-anchor="middle">1,058</text>
+      <rect x="247" y="131" width="18" height="149" fill="#3fb950"/>
+      <text x="256" y="125" fill="#9a9a9a" font-size="10" text-anchor="middle">1,791</text>
+      <text x="245" y="298" fill="#9a9a9a" font-size="11" text-anchor="middle">YouTube</text>
+      <rect x="315" y="191" width="18" height="89" fill="#58a6ff"/>
+      <text x="324" y="185" fill="#9a9a9a" font-size="10" text-anchor="middle">1,071</text>
+      <rect x="337" y="80" width="18" height="200" fill="#3fb950"/>
+      <text x="346" y="74" fill="#9a9a9a" font-size="10" text-anchor="middle">2,405</text>
+      <text x="335" y="298" fill="#9a9a9a" font-size="11" text-anchor="middle">Twitter/X</text>
+      <rect x="405" y="278" width="18" height="2" fill="#58a6ff"/>
+      <text x="414" y="272" fill="#9a9a9a" font-size="10" text-anchor="middle">5</text>
+      <rect x="427" y="242" width="18" height="38" fill="#3fb950"/>
+      <text x="436" y="236" fill="#9a9a9a" font-size="10" text-anchor="middle">456</text>
+      <text x="425" y="298" fill="#9a9a9a" font-size="11" text-anchor="middle">Reddit</text>
+      <rect x="495" y="269" width="18" height="11" fill="#58a6ff"/>
+      <text x="504" y="263" fill="#9a9a9a" font-size="10" text-anchor="middle">127</text>
+      <rect x="517" y="251" width="18" height="29" fill="#3fb950"/>
+      <text x="526" y="245" fill="#9a9a9a" font-size="10" text-anchor="middle">352</text>
+      <text x="515" y="298" fill="#9a9a9a" font-size="11" text-anchor="middle">TikTok</text>
+      <rect x="585" y="278" width="18" height="2" fill="#58a6ff"/>
+      <text x="594" y="272" fill="#9a9a9a" font-size="10" text-anchor="middle">19</text>
+      <rect x="607" y="254" width="18" height="26" fill="#3fb950"/>
+      <text x="616" y="248" fill="#9a9a9a" font-size="10" text-anchor="middle">310</text>
+      <text x="605" y="298" fill="#9a9a9a" font-size="11" text-anchor="middle">LinkedIn</text>
+      <rect x="675" y="278" width="18" height="2" fill="#58a6ff"/>
+      <text x="684" y="272" fill="#9a9a9a" font-size="10" text-anchor="middle">10</text>
+      <rect x="697" y="237" width="18" height="43" fill="#3fb950"/>
+      <text x="706" y="231" fill="#9a9a9a" font-size="10" text-anchor="middle">513</text>
+      <text x="695" y="298" fill="#9a9a9a" font-size="11" text-anchor="middle">Web</text>
+      <rect x="45" y="306" width="10" height="10" fill="#58a6ff"/>
+      <text x="61" y="315" fill="#9a9a9a" font-size="11">gathered</text>
+      <rect x="130" y="306" width="10" height="10" fill="#3fb950"/>
+      <text x="146" y="315" fill="#9a9a9a" font-size="11">inserted</text>
+      </svg>
+  </div>
+  <p class="caption">Gathered = exact sum of <code>result.count</code> over the 832 Mezmo search-job completions; inserted = exact sum of <code>analyzed</code> over the 832 sentiment-job completions. All sixteen per-platform queries returned exactly 104 jobs &mdash; that uniformity is itself the proof that no failed search job suppressed a sentiment follow-up &mdash; and both distributions reconcile against their unfiltered aggregates (2,383 gathered, 6,730 inserted, 690 / 669 zero buckets, 37 / 61 distinct values), including the full non-zero bucket multiset, which is what rules out a mis-scoped platform filter that matching totals could still hide. <strong>Only two blue bars are visible at all.</strong> Twitter/X (1,071) and YouTube (1,058) each gathered four times what all six Bright Data platforms managed together (254). Compare that with Sep&nbsp;9, when Bright Data alone returned 5,121. The shape is the same as last night but deeper, and it is still uneven rather than a clean whole-vendor zero &mdash; every platform returned something, from LinkedIn&rsquo;s &minus;61% to Facebook&rsquo;s &minus;82% &mdash; which continues to point at degraded scraping or an exhausted quota rather than a single tripped circuit breaker. Per-keyword yield is the number that matters: <strong>the Web canary returned 0.10 records per keyword, having returned 0.24 last night and 13.9 on Sep&nbsp;9</strong>, while X held at 10.3/kw and YouTube at 10.2/kw. The green inserted bars stay large on every platform because the sentiment stage is still draining a stored backlog and is not limited by tonight&rsquo;s thin haul.</p>
+
+  <table>
+  <thead>
+  <tr><th>Platform</th><th class="num">Gathered</th><th class="num">Inserted</th><th class="num">Insert rate</th><th class="num">Keywords w/ new mentions</th><th class="num">API calls</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+<tr><td>Facebook</td><td class="num">13</td><td class="num">264</td><td class="num">2031%</td><td class="num">8</td><td class="num">104</td><td>Bright Data SERP + scrape &mdash; <strong>13 records, 0.13 rec/kw, down 82% from 71</strong></td></tr>
+<tr><td>Instagram</td><td class="num">80</td><td class="num">639</td><td class="num">799%</td><td class="num">13</td><td class="num">104</td><td>Bright Data SERP + scrape &mdash; <strong>80 records, 0.77 rec/kw, down 72% from 289</strong>; least-damaged BD platform, as last night</td></tr>
+<tr><td>YouTube</td><td class="num">1,058</td><td class="num">1,791</td><td class="num">169%</td><td class="num">51</td><td class="num">104</td><td><strong>publishedAfter cursor &mdash; free tier, healthy at 10.2 rec/kw, and the night&rsquo;s second-largest haul</strong></td></tr>
+<tr><td>Twitter/X</td><td class="num">1,071</td><td class="num">2,405</td><td class="num">225%</td><td class="num">45</td><td class="num">208</td><td><strong>since_id cursor &mdash; 10.3 rec/kw, squarely in band; untouched by the Bright Data fault and tonight&rsquo;s top gatherer</strong></td></tr>
+<tr><td>Reddit</td><td class="num">5</td><td class="num">456</td><td class="num">9120%</td><td class="num">8</td><td class="num">104</td><td>Bright Data scrape &mdash; <strong>5 records, 0.05 rec/kw, down 74% from 19</strong>; 0 invalid-schema skips, but there was nothing to reject</td></tr>
+<tr><td>TikTok</td><td class="num">127</td><td class="num">352</td><td class="num">277%</td><td class="num">19</td><td class="num">104</td><td>Bright Data scrape &mdash; <strong>127 records, down 73% from 472</strong>; largest surviving BD haul</td></tr>
+<tr><td>LinkedIn</td><td class="num">19</td><td class="num">310</td><td class="num">1632%</td><td class="num">8</td><td class="num">104</td><td>Bright Data scrape &mdash; <strong>19 records, 0.18 rec/kw, down 61% from 49</strong></td></tr>
+<tr><td>Web</td><td class="num">10</td><td class="num">513</td><td class="num">5130%</td><td class="num">11</td><td class="num">104</td><td><strong>Bright Data canary &mdash; 10 records, 0.10 rec/kw against 0.24 last night and 13.9 on Sep&nbsp;9. The decisive signal.</strong></td></tr>
+  <tr class="total"><td>Total</td><td class="num">2,383</td><td class="num">6,730</td><td class="num">282%</td><td class="num">104 synced</td><td class="num">936</td><td></td></tr>
+  </tbody>
+  </table>
+  <p class="caption">Insert rate compares tonight&rsquo;s gathered records against mentions the sentiment stage cleared in the same window, so it is a pipeline-lag measure, not a loss measure &mdash; and for the third night it is close to meaningless as a percentage. At <strong>282% overall</strong> it is still far outside the 39&ndash;83% band of Sep&nbsp;1&ndash;8, and the extreme per-platform readings (9120% on Reddit, 5130% on Web) are the arithmetic of a near-zero denominator rather than anything meaningful about those platforms. Read the two columns as different units: gathered counts billed API records including duplicates filtered before storage, while inserted counts mentions the sentiment stage wrote out, whenever they were collected. <strong>The backlog drain has now run three nights and is close to finished</strong> &mdash; an excess of 4,347 mentions over gathered tonight, against 15,965 last night and 19,923 the night before. That is a 73% reduction in one night, and it is the expected shape of a large but finite queue being worked off; the falling insert total is therefore not a second fault. Keywords w/ new mentions = the platform&rsquo;s sentiment-job count minus its <code>{&quot;analyzed&quot;:0}</code> bucket; 163 of the 832 keyword-platform pairs produced something, down from 305 of 936. API calls are the fixed per-keyword request counts, which is exactly why a collapse in yield does not produce a matching collapse in cost.</p>
+
+  <h2>Cost breakdown per platform</h2>
+  <div class="chart">
+      <svg viewBox="0 0 680 316" role="img" aria-label="Horizontal bar chart of estimated cost per platform">
+      <text x="130" y="24" fill="#9a9a9a" font-size="11" text-anchor="end">Twitter/X</text>
+      <rect x="140" y="10" width="420" height="20" fill="#d29922"/>
+      <text x="568" y="24" fill="#9a9a9a" font-size="11">$6.3950</text>
+      <text x="130" y="58" fill="#9a9a9a" font-size="11" text-anchor="end">Instagram</text>
+      <rect x="140" y="44" width="18" height="20" fill="#d29922"/>
+      <text x="166" y="58" fill="#9a9a9a" font-size="11">$0.2760</text>
+      <text x="130" y="92" fill="#9a9a9a" font-size="11" text-anchor="end">TikTok</text>
+      <rect x="140" y="78" width="13" height="20" fill="#d29922"/>
+      <text x="161" y="92" fill="#9a9a9a" font-size="11">$0.1905</text>
+      <text x="130" y="126" fill="#9a9a9a" font-size="11" text-anchor="end">OpenAI sentiment</text>
+      <rect x="140" y="112" width="12" height="20" fill="#d29922"/>
+      <text x="160" y="126" fill="#9a9a9a" font-size="11">$0.1851</text>
+      <text x="130" y="160" fill="#9a9a9a" font-size="11" text-anchor="end">Facebook</text>
+      <rect x="140" y="146" width="12" height="20" fill="#d29922"/>
+      <text x="160" y="160" fill="#9a9a9a" font-size="11">$0.1755</text>
+      <text x="130" y="194" fill="#9a9a9a" font-size="11" text-anchor="end">Web</text>
+      <rect x="140" y="180" width="11" height="20" fill="#d29922"/>
+      <text x="159" y="194" fill="#9a9a9a" font-size="11">$0.1710</text>
+      <text x="130" y="228" fill="#9a9a9a" font-size="11" text-anchor="end">LinkedIn</text>
+      <rect x="140" y="214" width="2" height="20" fill="#d29922"/>
+      <text x="150" y="228" fill="#9a9a9a" font-size="11">$0.0285</text>
+      <text x="130" y="262" fill="#9a9a9a" font-size="11" text-anchor="end">Reddit</text>
+      <rect x="140" y="248" width="2" height="20" fill="#d29922"/>
+      <text x="150" y="262" fill="#9a9a9a" font-size="11">$0.0075</text>
+      <text x="130" y="296" fill="#9a9a9a" font-size="11" text-anchor="end">YouTube</text>
+      <rect x="140" y="282" width="2" height="20" fill="#d29922"/>
+      <text x="150" y="296" fill="#9a9a9a" font-size="11">$0.0000</text>
+      </svg>
+  </div>
+
+  <table>
+  <thead>
+  <tr><th>Source</th><th class="num">Cost</th><th class="num">Share</th><th class="num">Cost / inserted mention</th><th>Pricing model</th></tr>
+  </thead>
+  <tbody>
+<tr><td>Twitter/X</td><td class="num">$6.3950</td><td class="num">86%</td><td class="num">$0.0027</td><td>$0.005 / tweet (1,071) + $0.01 / counts call (104)</td></tr>
+<tr><td>Instagram</td><td class="num">$0.2760</td><td class="num">4%</td><td class="num">$0.0004</td><td>$0.0015 / kw SERP (104 calls) + $0.0015 / record (80)</td></tr>
+<tr><td>TikTok</td><td class="num">$0.1905</td><td class="num">3%</td><td class="num">$0.0005</td><td>$0.0015 / record (127)</td></tr>
+<tr><td>OpenAI sentiment</td><td class="num">$0.1851</td><td class="num">3%</td><td class="num">-</td><td>$0.0000275 / analysed mention (6,730)</td></tr>
+<tr><td>Facebook</td><td class="num">$0.1755</td><td class="num">2%</td><td class="num">$0.0007</td><td>$0.0015 / kw SERP (104 calls) + $0.0015 / record (13)</td></tr>
+<tr><td>Web</td><td class="num">$0.1710</td><td class="num">2%</td><td class="num">$0.0003</td><td>$0.0015 / kw SERP (104 calls) + $0.0015 / record (10)</td></tr>
+<tr><td>LinkedIn</td><td class="num">$0.0285</td><td class="num">0%</td><td class="num">$0.0001</td><td>$0.0015 / record (19)</td></tr>
+<tr><td>Reddit</td><td class="num">$0.0075</td><td class="num">0%</td><td class="num">$0.0000</td><td>$0.0015 / record (5)</td></tr>
+<tr><td>YouTube</td><td class="num">$0.0000</td><td class="num">0%</td><td class="num">-</td><td>Data API v3 free quota &mdash; 1,058 records at no cost</td></tr>
+  <tr class="total"><td>Total</td><td class="num">$7.4291</td><td class="num">100%</td><td class="num">$0.0011</td><td></td></tr>
+  </tbody>
+  </table>
+  <p class="caption">Costs are estimated, not measured &mdash; MongoDB was unreachable for the twenty-fourth consecutive run, so <code>KeywordDailyMetrics.costs</code> could not be read and each figure is the platform&rsquo;s standard rate applied to the exact Mezmo volumes above. The model is regression-tested before use: replaying Sep&nbsp;1&rsquo;s stored volumes through it reproduces that night&rsquo;s $1.2306 total exactly. <strong>The bill is where a silent collection failure hurts most.</strong> Spend fell to <strong>$7.43</strong> from $10.44, but Bright Data&rsquo;s data fell 73% while its invoice fell only 56%, because 936 of the API calls are fixed per-keyword charges that bill whether or not a keyword yields anything. <strong>Of Bright Data&rsquo;s $0.8490, fully $0.4680 &mdash; 55% &mdash; was SERP calls on Web, Facebook and Instagram that discovered almost nothing</strong>, up from 27% last night. <strong>Twitter/X now takes 86% of the bill on 45% of the records</strong>, its highest share ever recorded here and up from 76% last night, entirely because the other vendors shrank around it rather than because X changed; of its $6.3950, <strong>$1.04 is counts calls charged per keyword regardless of yield</strong>. Shares are computed on exact costs with largest-remainder rounding, and the column is shown to four decimals so it reconciles exactly against the total. Cost per inserted mention rises to <strong>$0.0011</strong> from $0.0005 as the backlog tailwind fades. The per-platform figures are distorted the same way: <strong>Reddit reads cheapest at $0.000016</strong> purely because it gathered 5 records while the backlog handed it 456 insertions, so compute it rather than reading efficiency into it. <strong>Twitter/X is dearest at $0.002659</strong>. YouTube again carries no cost-per-mention figure because it is free.</p>
+
+  <h2>Spend by vendor</h2>
+  <div class="chart">
+      <svg viewBox="0 0 680 112" role="img" aria-label="Horizontal bar chart of estimated spend by vendor">
+      <text x="130" y="24" fill="#9a9a9a" font-size="11" text-anchor="end">X API</text>
+      <rect x="140" y="10" width="420" height="20" fill="#58a6ff"/>
+      <text x="568" y="24" fill="#9a9a9a" font-size="11">$6.3950</text>
+      <text x="130" y="58" fill="#9a9a9a" font-size="11" text-anchor="end">Bright Data</text>
+      <rect x="140" y="44" width="56" height="20" fill="#58a6ff"/>
+      <text x="204" y="58" fill="#9a9a9a" font-size="11">$0.8490</text>
+      <text x="130" y="92" fill="#9a9a9a" font-size="11" text-anchor="end">OpenAI</text>
+      <rect x="140" y="78" width="12" height="20" fill="#58a6ff"/>
+      <text x="160" y="92" fill="#9a9a9a" font-size="11">$0.1851</text>
+      </svg>
+  </div>
+  <p class="caption">X API $6.40 (86.1%) &middot; Bright Data $0.85 (11.4%) &middot; OpenAI $0.19 (2.5%). <strong>This is the most lopsided split in the series, and it is a symptom rather than a fact about X.</strong> X billed $6.3950 for 1,071 tweets plus 104 counts calls &mdash; an ordinary night at an ordinary rate per keyword. Bright Data&rsquo;s invoice fell from $1.92 to <strong>$0.8490</strong> across 254 records on Web, Reddit, TikTok, LinkedIn and the Facebook/Instagram SERP-and-scrape pipelines, <strong>2.44 records per keyword against 7.9 last night and 50.2 on Sep&nbsp;9</strong>, with no platform at zero but none anywhere near its normal rate. <strong>Because more than half the Bright Data line is now fixed per-keyword SERP cost, the invoice fell 56% while the data fell 73%</strong> &mdash; the thinner the yield, the worse the value, and that ratio has deteriorated for two nights running. OpenAI covers sentiment on all 6,730 analysed mentions at $0.19; its share falls to 2.5% as the backlog drains. Total <strong>$7.4291</strong> for the night, or $0.0011 per inserted mention.</p>
+
+  <h2>Job pipeline</h2>
+  <table>
+  <thead>
+  <tr><th>Job type</th><th class="num">Spawned</th><th class="num">Completed</th><th class="num">Failed</th><th class="num">Cancelled</th></tr>
+  </thead>
+  <tbody>
+  <tr><td>socialListeningSearch* (8 platforms)</td><td class="num">832</td><td class="num">832</td><td class="num">0</td><td class="num">0</td></tr>
+  <tr><td>analyzeMentions</td><td class="num">832</td><td class="num">832</td><td class="num">0</td><td class="num">0</td></tr>
+  <tr><td>socialListeningComputeMetrics</td><td class="num">104</td><td class="num">104</td><td class="num">0</td><td class="num">0</td></tr>
+  </tbody>
+  </table>
+  <p class="caption">1,768 jobs spawned and 1,768 logged a completion, with <strong>0 failures and 0 cancellations</strong>. <code>[MiniJob] &quot;Job failed&quot;</code> returned nine lines in the window and not one is a social listening job (7 <code>publishPost</code>, and one each of <code>InstagramReelPublishVerification</code> and <code>CompanyAnomaliesCheck</code>); <code>&quot;Job cancelled&quot;</code> returned nothing at all. Each of the 8 search buckets and each of the 8 sentiment platform queries holds exactly 104 completions, a clean 1:1. <strong>For the second night, this table is the clearest possible demonstration that a green pipeline is necessary but not sufficient.</strong> An empty result set is still a successful job, so Bright Data returning 254 records where it returned 5,121 two nights ago produced <em>no</em> failure, warning or error. Widening the search past the <code>socialListening</code> token confirms it: the window holds 1,386 job-app ERROR lines, but grouping them by type yields only <code>publishPost</code>, <code>InstagramReelPublishVerification</code> and <code>CompanyAnomaliesCheck</code> &mdash; <strong>not one is a social listening search</strong>. The keyword diff, the other thing this table cannot show, is healthy: <strong>86 retained, 32 dropped, 18 new</strong> against last night, with the brand cohort up 90&nbsp;&rarr;&nbsp;97 and <strong>86 of 90 brand keywords kept (96%, the best retention in the series)</strong> against just 4 departures and 11 arrivals; the independent last-sync-stamp cross-check agrees on 86 exactly. <strong>The 27 dropped topic keywords are not a fault</strong> &mdash; they synced last night and are not due again for a week, which is the whole of the headline fall from 117 keywords to 104. The one on-demand keyword created late last night did not return, which makes 1 return out of 6 across four nights and further firms up the hypothesis that on-demand creation does not reliably hand a keyword to the nightly cron. The underlying entitlement bug remains <strong>quiet for a third day</strong>: <code>[customer.subscription.updated] disabling social listening for workspaces because new subscriptions do not have social listening enabled</code> still totals <strong>4,902 lines across 3,277 distinct workspaces</strong> since Aug&nbsp;19, <strong>the identical figure to 24 and 48 hours ago &mdash; zero new lines, zero new workspaces</strong>, and zero firings inside this window. Source: Mezmo <code>[MiniJob]</code> Job started / Job done / Job failed / Job cancelled counts, 03:30&ndash;07:10 UTC.</p>
+
+</div>
+</body>
+</html>
