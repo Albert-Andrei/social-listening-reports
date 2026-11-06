@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Listening Night Sync &mdash; Nov 6, 2026</title>
+<style>
+
+  :root {
+    --bg: #1a1a1a;
+    --card: #212121;
+    --border: #333333;
+    --text: #e6e6e6;
+    --muted: #9a9a9a;
+    --blue: #58a6ff;
+    --green: #3fb950;
+    --green-text: #7ee787;
+    --green-bg: #1b2d1f;
+    --green-border: #2ea043;
+    --amber: #d29922;
+    --red-text: #ff9a92;
+    --red-bg: #2d1a1a;
+    --red-border: #a0392e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    padding: 40px 24px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+  h2 { font-size: 18px; font-weight: 600; margin: 36px 0 14px; }
+  .callout {
+    background: var(--green-bg);
+    border: 1px solid var(--green-border);
+    color: var(--green-text);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .stat {
+    flex: 1 1 160px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .stat .num { font-size: 26px; font-weight: 700; }
+  .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .cards { display: flex; gap: 12px; flex-wrap: wrap; }
+  .card {
+    flex: 1 1 380px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .card .name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 14px; font-weight: 600; color: var(--blue); }
+  .card .meta { font-size: 12px; color: var(--muted); margin: 4px 0 8px; }
+  .card .desc { font-size: 13px; }
+  .card code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+  .caption { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  th, td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 700; border-top: 1px solid var(--border); }
+  .chart {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 8px;
+  }
+  svg { display: block; width: 100%; height: auto; }
+  svg text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .callout.warn {
+    background: #2b2410;
+    border-color: #8a6d1f;
+    color: #f0c669;
+  }
+  .callout.bad {
+    background: var(--red-bg);
+    border-color: var(--red-border);
+    color: var(--red-text);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Social Listening Night Sync &mdash; Nov 6, 2026</h1>
+  <div class="subtitle">Cron window 04:00&ndash;05:00 UTC &middot; Sources: Mezmo production job logs (03:30&ndash;07:10 UTC), re-read after the window closed; Job started, Job done, and Job failed counts were unchanged on a later read. MongoDB MCP had no connection string available this run, so per-platform volumes are exact sums of Mezmo search-job <code>result.count</code> and sentiment <code>analyzed</code> values, and costs are derived from those volumes at standard vendor pricing rather than read from <code>KeywordDailyMetrics</code>. No Sentry source was connected; Mezmo <code>level:ERROR</code>, <code>level:==err</code>, and the Sentry <code>beforeSend</code> lines inside Mezmo are the error ledger.</div>
+
+  <div class="callout bad">
+&#9940; <strong>40 TikTok searches hit a timeout. 16 never finished and 24 finished late.</strong>
+Every failure reason is <code>workTimeout exceeded</code>, all on production, durations 900,090&thinsp;ms to 901,266&thinsp;ms. Hard timeouts are off gathered and off inserted. The 24 late completions gathered 467 records: those records are in gathered and were not analysed. Clean TikTok jobs gathered 421 and sentiment inserted 1,343, which is 922 more than they gathered. The net TikTok result is 1,343 inserted against 888 gathered, 455 above, because that clean excess is larger than the 467 unanalysed late records. One clean sentiment job analysed 378, against a search maximum of 91. Staging had no TikTok failures.
+<br><br>
+&#9940; <strong>1 Reddit search finished late, and 1 Twitter search never finished.</strong>
+The Reddit failure is <code>workTimeout exceeded</code> on production, duration 900,989&thinsp;ms. It logged Job done after the failure and gathered 1 record, which was billed and not analysed. Clean Reddit jobs gathered 1,544 and inserted 1,520, so the net gap is 25. The Twitter failure is one production search that ran 330&thinsp;ms, logged an invalid username, and never logged Job done. The username is omitted. It is off gathered and off the API-call cell.
+<br><br>
+&#9940; <strong>1 Instagram sentiment job timed out.</strong>
+<code>analyzeMentions</code> spawned 2,810, which equals the clean search completions, and 2,809 finished. The one failure is production Instagram, reason <code>OpenAI timed out.</code>, duration 120,386&thinsp;ms. Instagram search itself is 356 started and 356 Job done. Sentiment started for all 356 and finished 355, so that keyword's records are in gathered and not in inserted. Instagram's net gap is 26 (2,598 gathered, 2,572 inserted). The 26 is that unanalysed keyword plus ordinary filtering, and the two are not separated here.
+<br><br>
+&#9888; <strong>The crons enqueued 359 keywords. By 07:10 some platform searches had not started, and none started from 07:10 through 08:00.</strong>
+Production topic enqueued 2, production brand 354, staging brand 3, staging topic 0. Metrics started for all 359, and every job that had started was terminal at 07:10 (nothing in flight). Staging started all 3 brand keywords on every platform. Production brand started Twitter for all 354 and started the other seven platforms for 353, so one brand keyword started Twitter only. The 2 topic keywords started TikTok; 1 of them also started Facebook; neither started Web, YouTube, Instagram, LinkedIn, Reddit, or Twitter. No <code>socialListeningSearch</code> Job started line exists from 07:10 through 08:00 UTC, so those remaining searches were not moving. The stat strip uses 356, the in-window Web starts. The 359 enqueued keywords are not folded into the tables.
+<br><br>
+&#9989; <strong>Both production crons finished. Every active keyword was idle.</strong>
+<code>socialListeningTopicSync</code> started at <strong>04:00:01.171</strong> and returned <code>{ keywordsProcessed: 2 }</code> in <strong>4,116&thinsp;ms</strong>.
+<code>socialListeningBrandSync</code> started at <strong>05:00:00.673</strong> and returned <code>{ keywordsProcessed: 354 }</code> in <strong>105,477&thinsp;ms</strong>. Queue time was 434&thinsp;ms. Staging topic started at 04:00:00.703, 468&thinsp;ms earlier, ran 204&thinsp;ms, and returned <code>{ keywordsProcessed: 0 }</code>. Staging brand started at 05:00:00.466, 207&thinsp;ms before production, ran 1,291&thinsp;ms, and returned <code>{ keywordsProcessed: 3 }</code>. There was no 03:30 run. Since October&nbsp;14 the production brand cron has 18 completions and 5 failures. Tonight is a completion, and the failure count did not increase.
+<br><br>
+&#9888; <strong>Brand windows are split. 297 started Web searches are on a 1-day span, and 2 are still on a 7-day span.</strong>
+All 356 Web starts end at <code>2026-11-06T05</code>. 297 start at <code>2026-11-05T05</code> (1-day span, hour-aligned; 295 production and 2 staging). 40 start at <code>2026-11-04T05</code> (2-day). 5 start at <code>2026-11-03T05</code> (3-day). 2 start at <code>2026-10-30T05</code> (7-day). The other 12 are not hour-aligned to 05: 5 at <code>2026-11-04T14</code>, 3 at <code>2026-11-04T11</code> (2 production and 1 staging), 2 at <code>2026-11-04T04</code>, and 2 at <code>2026-11-04T15</code>. The seconds inside the hour were not readable from these logs, so this is not claimed as an exact millisecond match. The topic searches that did start run from <code>2026-10-30T04</code> to <code>2026-11-06T04</code>, a 7-day span: TikTok 2 and Facebook 1. Production topic logged &ldquo;found 193 idle of 193 active keywords&rdquo; and spawned 2, so 191 active topic keywords were not enqueued. Production brand logged &ldquo;found 359 idle of 359 active keywords&rdquo; and spawned 354, so 5 were not enqueued. Staging topic was 1 idle of 1 and spawned 0. Staging brand was 3 idle of 3 and spawned 3. Idle equals active on all four lines, so the log does not show a keyword stuck mid-sync. MongoDB was not checked.
+<br><br>
+&#9888; <strong>21,062 records were gathered and 21,079 mentions were inserted (100%). Estimated spend is $45.7791725.</strong>
+The stat strip rounds that to $45.78. The rounded total rate is 100% because 21,079 / 21,062 is 100.08%. TikTok is the insert-rate outlier at 151%. LinkedIn inserted 11 more than it gathered. Web is 269 under gathered, with no late Web jobs, so that gap is filtering before storage. Bright Data is $23.07 and X API is $22.13. The model reproduces the stored September&nbsp;1 fixture exactly ($1.2305500, Bright&nbsp;Data $0.6345).
+<br><br>
+&#9989; <strong>Not faults.</strong>
+The X monthly spend cap, <code>skipped: rate_limited</code>, <code>skipped: spend_cap</code>, depleted X credits, <code>TwitterApiError</code>, invalid schemas, the YouTube <code>searchVideos failed</code> quota line, the YouTube <code>getVideoDetails</code> 403, and customer-not-active were all 0. YouTube is 356 started and 356 Job done. 7 searches returned count 50. One metrics job logged <code>X counts API failed, skipping twitter metrics</code> at status 400 and still finished, so 358 of 359 counts calls are billed. The keyword id is omitted. Cancelled social-listening jobs were 0. No priority &minus;1 start appears on YouTube (356) or Web (356), and metrics starts equal the cron enqueue, so there is no on-demand keyword in this window. The four cron lines have <code>retried</code> 0, and all 356 Web starts have <code>retried</code> 0. Entitlement warnings (<code>disabling social listening</code>) were 23 lines, all production. <code>getaddrinfo</code> was 20 lines (15 web, 5 job) and does not match these failures. Social-listening WARN lines are 43, of which 17 are typed TikTok and 3 have no type in the group. Social-listening <code>level:ERROR</code> is 67 and equals failures plus late: TikTok 64, Reddit 2, Twitter 1. <code>level:==err</code> is 18. Sentry <code>beforeSend</code> is 31, all production. Those two groupings have an empty type field, so they are not claimed to be the same lines. Staging searches did not fail.
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">356</div><div class="lbl">Keywords synced</div></div>
+    <div class="stat"><div class="num">6,025 / 5,982</div><div class="lbl">Jobs spawned / clean completed</div></div>
+    <div class="stat"><div class="num">43 / 0</div><div class="lbl">Jobs failed / cancelled</div></div>
+    <div class="stat"><div class="num">21,079</div><div class="lbl">New mentions inserted</div></div>
+    <div class="stat"><div class="num">$45.78</div><div class="lbl">API spend (today, UTC, est.)</div></div>
+  </div>
+
+  <h2>Cron runs</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="name">socialListeningTopicSync</div>
+      <div class="meta">production &middot; 04:00:01.171 UTC &middot; duration 4.1s &middot; 2 keywords</div>
+      <div class="desc">Done at 04:00:05.287. Logged duration 4,116&thinsp;ms, which equals end-minus-start.
+Queue time 448&thinsp;ms, so the job was enqueued at 04:00:00.723. Result <code>{ keywordsProcessed: 2 }</code>. Topics re-sync
+weekly (7-day freshness). The cron logged found 193 idle of 193 active keywords and spawned 2, so 191 active topic keywords were left unenqueued. Of the topic searches that started, TikTok's 2 and Facebook's 1 run from
+<code>startDate 2026-10-30T04</code> to <code>endDate 2026-11-06T04</code>, a 7-day span at hour 04. Web, YouTube, Instagram, LinkedIn, Reddit, and Twitter had started none of the 2, and Facebook had started 1.
+Staging started at 04:00:00.703, 468&thinsp;ms earlier, ran 204&thinsp;ms and returned
+<code>{ keywordsProcessed: 0 }</code>. Staging found 1 idle of 1 active keyword and spawned none.</div>
+    </div>
+    <div class="card">
+      <div class="name">socialListeningBrandSync</div>
+      <div class="meta">production &middot; 05:00:00.673 UTC &middot; duration 105.5s &middot; 354 keywords</div>
+      <div class="desc">Done at 05:01:46.150. Logged duration 105,477&thinsp;ms, which equals end-minus-start.
+Queue time 434&thinsp;ms, so the job was enqueued at 05:00:00.239 and the worker started it inside the same second. Result <code>{ keywordsProcessed: 354 }</code>. Brands re-sync
+daily (24-hour freshness). The started Web searches are not all on a 1-day window: 297 are hour-aligned 1-day spans (<code>2026-11-05T05</code> to <code>2026-11-06T05</code>), 40 are hour-aligned 2-day spans (<code>2026-11-04T05</code> to <code>2026-11-06T05</code>), 5 are hour-aligned 3-day spans (<code>2026-11-03T05</code> to <code>2026-11-06T05</code>), 2 are hour-aligned 7-day spans (<code>2026-10-30T05</code> to <code>2026-11-06T05</code>), and 12 sit on other hours of 2026-11-04.
+Production found 359 idle of 359 active keywords and spawned 354, so 5 active brand keywords were left unenqueued.
+Staging started at 05:00:00.466, 207&thinsp;ms before production, ran 1,291&thinsp;ms and returned
+<code>{ keywordsProcessed: 3 }</code>. Staging found 3 idle of 3 and spawned 3. All eight platforms started for all 3.</div>
+    </div>
+  </div>
+  <p class="caption">Both production crons completed, and logged duration equals end-minus-start on all four runs. There was no 03:30 run. The four results sum to 359 keywords enqueued (2 + 0 + 354 + 3). The &ldquo;Keywords synced&rdquo; stat is 356, the in-window Web search starts, because that is the count used on earlier nights when enqueue and starts differ. Twitter had started for 357, TikTok for 358, Facebook for 357, and Web, YouTube, Instagram, LinkedIn, and Reddit for 356. Metrics started for all 359 and all 359 completed (<code>daysUpserted</code> 1 through 8: 106, 208, 37, 5, 0, 0, 0, 3). No search job started from 07:10 through 08:00 UTC. Since October&nbsp;14 the production brand cron has 18 completions and 5 failures. Tonight is a completion, and the failure count did not increase. Priority is 1 on every YouTube start and every Web start. No separate per-keyword skip line was logged.</p>
+
+  <h2>Mentions: gathered vs inserted per platform</h2>
+  <div class="chart">
+    <svg viewBox="0 0 820 340" width="100%" role="img" aria-label="Grouped bars of gathered and inserted mentions per platform">
+      <line x1="40" y1="280" x2="790" y2="280" stroke="#3a3a3a" stroke-width="1"/>
+      <rect x="45" y="80" width="18" height="200" fill="#58a6ff"/>
+      <rect x="67" y="89" width="18" height="191" fill="#3fb950"/>
+      <text x="65" y="72" text-anchor="middle" font-size="10" fill="#8b949e">5,912 / 5,643</text>
+      <text x="65" y="298" text-anchor="middle" font-size="11" fill="#c9d1d9">Web</text>
+      <rect x="135" y="155" width="18" height="125" fill="#58a6ff"/>
+      <rect x="157" y="156" width="18" height="124" fill="#3fb950"/>
+      <text x="155" y="147" text-anchor="middle" font-size="10" fill="#8b949e">3,709 / 3,660</text>
+      <text x="155" y="298" text-anchor="middle" font-size="11" fill="#c9d1d9">Twitter</text>
+      <rect x="225" y="177" width="18" height="103" fill="#58a6ff"/>
+      <rect x="247" y="177" width="18" height="103" fill="#3fb950"/>
+      <text x="245" y="169" text-anchor="middle" font-size="10" fill="#8b949e">3,039 / 3,035</text>
+      <text x="245" y="298" text-anchor="middle" font-size="11" fill="#c9d1d9">YouTube</text>
+      <rect x="315" y="192" width="18" height="88" fill="#58a6ff"/>
+      <rect x="337" y="193" width="18" height="87" fill="#3fb950"/>
+      <text x="335" y="184" text-anchor="middle" font-size="10" fill="#8b949e">2,598 / 2,572</text>
+      <text x="335" y="298" text-anchor="middle" font-size="11" fill="#c9d1d9">Instagram</text>
+      <rect x="405" y="200" width="18" height="80" fill="#58a6ff"/>
+      <rect x="427" y="203" width="18" height="77" fill="#3fb950"/>
+      <text x="425" y="192" text-anchor="middle" font-size="10" fill="#8b949e">2,355 / 2,279</text>
+      <text x="425" y="298" text-anchor="middle" font-size="11" fill="#c9d1d9">Facebook</text>
+      <rect x="495" y="228" width="18" height="52" fill="#58a6ff"/>
+      <rect x="517" y="229" width="18" height="51" fill="#3fb950"/>
+      <text x="515" y="220" text-anchor="middle" font-size="10" fill="#8b949e">1,545 / 1,520</text>
+      <text x="515" y="298" text-anchor="middle" font-size="11" fill="#c9d1d9">Reddit</text>
+      <rect x="585" y="246" width="18" height="34" fill="#58a6ff"/>
+      <rect x="607" y="245" width="18" height="35" fill="#3fb950"/>
+      <text x="605" y="237" text-anchor="middle" font-size="10" fill="#8b949e">1,016 / 1,027</text>
+      <text x="605" y="298" text-anchor="middle" font-size="11" fill="#c9d1d9">LinkedIn</text>
+      <rect x="675" y="250" width="18" height="30" fill="#58a6ff"/>
+      <rect x="697" y="235" width="18" height="45" fill="#3fb950"/>
+      <text x="695" y="227" text-anchor="middle" font-size="10" fill="#8b949e">888 / 1,343</text>
+      <text x="695" y="298" text-anchor="middle" font-size="11" fill="#c9d1d9">TikTok</text>
+      <rect x="45" y="316" width="10" height="10" fill="#58a6ff"/>
+      <text x="61" y="325" font-size="11" fill="#8b949e">Gathered (billed API records)</text>
+      <rect x="255" y="316" width="10" height="10" fill="#3fb950"/>
+      <text x="271" y="325" font-size="11" fill="#8b949e">Inserted (new mentions)</text>
+    </svg>
+  </div>
+  <p class="caption">Gathered is the sum of <code>result.count</code> on search Job done lines, including late completions and excluding hard failures. Inserted is the sum of <code>analyzed</code> on <code>analyzeMentions</code> Job done lines. Bar height uses the larger of the two series (5,912) as 200px. No bar uses the 2px floor. Web leads both series. TikTok's inserted bar is taller than its gathered bar. The order is gathered descending.</p>
+  <table>
+    <tr><th>Platform</th><th class="num">Gathered</th><th class="num">Inserted</th><th class="num">Insert rate</th><th class="num">Keywords with new mentions</th><th class="num">API calls</th><th>Notes</th></tr>
+    <tr><td>Web</td><td class="num">5,912</td><td class="num">5,643</td><td class="num">95%</td><td class="num">216</td><td class="num">356</td><td>SERP discovery plus fetch. 356 Job done lines and 0 failures, against 356 starts. 5,912 gathered and 5,643 inserted, a gap of 269 with no late jobs. Search maximum 72, sentiment maximum 69. 138 of 356 searches gathered 0.</td></tr>
+    <tr><td>Twitter/X</td><td class="num">3,709</td><td class="num">3,660</td><td class="num">99%</td><td class="num">133</td><td class="num">356</td><td>X recent search, plus one counts-call inside metrics. 357 starts and 356 Job done. 1 search failed on an invalid username and is off gathered. No <code>rate_limited</code> completion. Sentiment inserted 3,660, which is 49 under gathered. Search maximum 50, sentiment maximum 50. 222 of 356 completions gathered 0. Counts calls are not in this cell: 358 were billed and 1 was skipped at status 400.</td></tr>
+    <tr><td>YouTube</td><td class="num">3,039</td><td class="num">3,035</td><td class="num">100%</td><td class="num">168</td><td class="num">356</td><td>Free tier. 356 starts and 356 Job done, 0 failed. No <code>searchVideos failed</code> quota line. The rounded rate is 100% on 3,035 / 3,039. Search maximum 50 (7 searches at exactly 50), sentiment maximum 53. 187 of 356 gathered 0.</td></tr>
+    <tr><td>Instagram</td><td class="num">2,598</td><td class="num">2,572</td><td class="num">99%</td><td class="num">158</td><td class="num">356</td><td>Bright Data dataset trigger plus a per-keyword SERP charge. 356 searches gathered 2,598 and 0 search failures. Sentiment started 356 and finished 355; the missing one timed out in OpenAI. The net gap is 26. Search maximum 98, sentiment maximum 97. 196 of 356 gathered 0.</td></tr>
+    <tr><td>Facebook</td><td class="num">2,355</td><td class="num">2,279</td><td class="num">97%</td><td class="num">132</td><td class="num">357</td><td>Bright Data dataset trigger plus SERP. 357 starts, 357 Job done, 0 failures and no workTimeout. Sentiment inserted 2,279, a gap of 76. Search maximum 89, sentiment maximum 88. 223 of 357 gathered 0. The extra start versus Web is the one topic keyword that started Facebook.</td></tr>
+    <tr><td>Reddit</td><td class="num">1,545</td><td class="num">1,520</td><td class="num">98%</td><td class="num">91</td><td class="num">356</td><td>Bright Data dataset trigger, no fixed SERP charge. 356 starts, 356 Job done, 1 late failure. The late job gathered 1. Clean jobs gathered 1,544 and inserted 1,520. Search maximum 93, sentiment maximum 136. 246 of 356 done lines gathered 0. API calls keep the late completion.</td></tr>
+    <tr><td>LinkedIn</td><td class="num">1,016</td><td class="num">1,027</td><td class="num">101%</td><td class="num">107</td><td class="num">356</td><td>Bright Data dataset trigger, no fixed SERP charge. 0 failures. 356 searches gathered 1,016 and 356 sentiment jobs inserted 1,027, which is 11 above gathered. The rounded rate is 101%. Search maximum 83, sentiment maximum 94. 247 of 356 gathered 0.</td></tr>
+    <tr><td>TikTok</td><td class="num">888</td><td class="num">1,343</td><td class="num">151%</td><td class="num">46</td><td class="num">342</td><td>Bright Data dataset trigger, no fixed SERP charge. 358 starts, 342 Job done, 40 failures (16 hard, 24 late). Late jobs gathered 467. Clean jobs gathered 421 and inserted 1,343. Search maximum 91, sentiment maximum 378. 276 of 342 done lines gathered 0. API calls keep the late completions.</td></tr>
+    <tr class="total"><td>Total</td><td class="num">21,062</td><td class="num">21,079</td><td class="num">100%</td><td class="num">356 web starts</td><td class="num">2,835</td><td>359 keywords were enqueued. 356 Web searches had started by 07:10. API calls are search Job done lines. There was no Twitter refusal to subtract. Late completions stay in the call count. X counts-calls are not in this column.</td></tr>
+  </table>
+  <p class="caption">Insert rate is inserted divided by gathered, rounded half up to a whole percent. 100% on YouTube is 3,035 / 3,039, and 100% on the total is 21,079 / 21,062. 101% on LinkedIn is 1,027 / 1,016. 151% on TikTok is 1,343 / 888. An inserted count above gathered is not duplicate filtering. Keywords with new mentions are sentiment jobs whose <code>analyzed</code> value is above 0. TikTok's 46 and Reddit's 91 are counted on the clean sentiment jobs only, because a late search does not spawn <code>analyzeMentions</code>. Instagram's 158 is counted on the 355 sentiment jobs that finished.</p>
+
+  <h2>Cost breakdown per platform</h2>
+  <div class="chart">
+    <svg viewBox="0 0 720 322" width="100%" role="img" aria-label="Horizontal bars of estimated cost per platform in USD">
+      <text x="130" y="24" text-anchor="end" font-size="12" fill="#c9d1d9">Twitter/X</text>
+      <rect x="140" y="10" width="420" height="20" fill="#d29922"/>
+      <text x="568" y="24" font-size="12" fill="#e6e6e6">$22.13</text>
+      <text x="130" y="58" text-anchor="end" font-size="12" fill="#c9d1d9">Web</text>
+      <rect x="140" y="44" width="178" height="20" fill="#d29922"/>
+      <text x="326" y="58" font-size="12" fill="#e6e6e6">$9.40</text>
+      <text x="130" y="92" text-anchor="end" font-size="12" fill="#c9d1d9">Instagram</text>
+      <rect x="140" y="78" width="84" height="20" fill="#d29922"/>
+      <text x="232" y="92" font-size="12" fill="#e6e6e6">$4.43</text>
+      <text x="130" y="126" text-anchor="end" font-size="12" fill="#c9d1d9">Facebook</text>
+      <rect x="140" y="112" width="77" height="20" fill="#d29922"/>
+      <text x="225" y="126" font-size="12" fill="#e6e6e6">$4.07</text>
+      <text x="130" y="160" text-anchor="end" font-size="12" fill="#c9d1d9">Reddit</text>
+      <rect x="140" y="146" width="44" height="20" fill="#d29922"/>
+      <text x="192" y="160" font-size="12" fill="#e6e6e6">$2.32</text>
+      <text x="130" y="194" text-anchor="end" font-size="12" fill="#c9d1d9">LinkedIn</text>
+      <rect x="140" y="180" width="29" height="20" fill="#d29922"/>
+      <text x="177" y="194" font-size="12" fill="#e6e6e6">$1.52</text>
+      <text x="130" y="228" text-anchor="end" font-size="12" fill="#c9d1d9">TikTok</text>
+      <rect x="140" y="214" width="25" height="20" fill="#d29922"/>
+      <text x="173" y="228" font-size="12" fill="#e6e6e6">$1.33</text>
+      <text x="130" y="262" text-anchor="end" font-size="12" fill="#c9d1d9">OpenAI</text>
+      <rect x="140" y="248" width="11" height="20" fill="#d29922"/>
+      <text x="159" y="262" font-size="12" fill="#e6e6e6">$0.58</text>
+      <text x="130" y="296" text-anchor="end" font-size="12" fill="#c9d1d9">YouTube</text>
+      <rect x="140" y="282" width="2" height="20" fill="#d29922"/>
+      <text x="150" y="296" font-size="12" fill="#e6e6e6">$0.00</text>
+    </svg>
+  </div>
+  <table>
+    <tr><th>Platform</th><th class="num">Cost</th><th class="num">Share</th><th class="num">Cost / inserted mention</th><th>Pricing</th></tr>
+    <tr><td>Twitter/X</td><td class="num">$22.1250</td><td class="num">48%</td><td class="num">$0.0060</td><td>$0.005 per tweet gathered + $0.01 per counts-call</td></tr>
+    <tr><td>Web</td><td class="num">$9.4020</td><td class="num">21%</td><td class="num">$0.0017</td><td>$0.0015 per keyword SERP + $0.0015 per record</td></tr>
+    <tr><td>Instagram</td><td class="num">$4.4310</td><td class="num">10%</td><td class="num">$0.0017</td><td>$0.0015 per keyword SERP + $0.0015 per record</td></tr>
+    <tr><td>Facebook</td><td class="num">$4.0680</td><td class="num">9%</td><td class="num">$0.0018</td><td>$0.0015 per keyword SERP + $0.0015 per record</td></tr>
+    <tr><td>Reddit</td><td class="num">$2.3175</td><td class="num">5%</td><td class="num">$0.0015</td><td>$0.0015 per record (no fixed SERP charge)</td></tr>
+    <tr><td>LinkedIn</td><td class="num">$1.5240</td><td class="num">3%</td><td class="num">$0.0015</td><td>$0.0015 per record (no fixed SERP charge)</td></tr>
+    <tr><td>TikTok</td><td class="num">$1.3320</td><td class="num">3%</td><td class="num">$0.0010</td><td>$0.0015 per record (no fixed SERP charge)</td></tr>
+    <tr><td>OpenAI</td><td class="num">$0.5797</td><td class="num">1%</td><td class="num">&mdash;</td><td>$0.0000275 per inserted mention</td></tr>
+    <tr><td>YouTube</td><td class="num">$0.0000</td><td class="num">0%</td><td class="num">&mdash;</td><td>Free tier</td></tr>
+    <tr class="total"><td>Total</td><td class="num">$45.7792</td><td class="num">100%</td><td class="num">$0.0022</td><td>Estimated from exact Mezmo volumes at standard vendor pricing</td></tr>
+  </table>
+  <p class="caption">Costs are estimated. Twitter is $0.005 &times; 3,709 tweets plus $0.01 &times; 358 counts calls. Web, Instagram, and Facebook add $0.0015 per keyword whose search completed (356, 356, and 357) to $0.0015 per gathered record. Reddit, TikTok, and LinkedIn are $0.0015 per gathered record, so the late completions stay on the bill and hard failures stay off. OpenAI is $0.0000275 &times; 21,079. Shares are largest-remainder whole percents and sum to 100. The 4dp column sums to $45.7792, which is the exact total $45.7791725 rounded half up to 4dp. Chart labels are 2dp and sum to the stat $45.78, as do the vendor labels below. TikTok's $0.0010 per inserted mention is 1,343 inserted mentions under a bill for 888 gathered records. The September&nbsp;1 fixture still reproduces $1.2305500 and Bright Data $0.6345.</p>
+
+  <h2>Spend by vendor</h2>
+  <div class="chart">
+    <svg viewBox="0 0 720 118" width="100%" role="img" aria-label="Horizontal bars of estimated spend by vendor in USD">
+      <text x="130" y="24" text-anchor="end" font-size="12" fill="#c9d1d9">Bright Data</text>
+      <rect x="140" y="10" width="420" height="20" fill="#58a6ff"/>
+      <text x="568" y="24" font-size="12" fill="#e6e6e6">$23.07</text>
+      <text x="130" y="58" text-anchor="end" font-size="12" fill="#c9d1d9">X API</text>
+      <rect x="140" y="44" width="403" height="20" fill="#58a6ff"/>
+      <text x="551" y="58" font-size="12" fill="#e6e6e6">$22.13</text>
+      <text x="130" y="92" text-anchor="end" font-size="12" fill="#c9d1d9">OpenAI</text>
+      <rect x="140" y="78" width="11" height="20" fill="#58a6ff"/>
+      <text x="159" y="92" font-size="12" fill="#e6e6e6">$0.58</text>
+    </svg>
+  </div>
+  <p class="caption">Bright Data is Web + Instagram + Facebook + Reddit + LinkedIn + TikTok, $23.0745 exactly (50.4%). The fixed SERP piece inside Bright Data is $0.0015 &times; (356 + 356 + 357) = $1.6035, which is 6.9% of the Bright Data invoice. X API is Twitter, $22.1250 exactly (48.3%): $18.5450 of tweets and $3.5800 of counts calls. OpenAI is $0.5796725 exactly (1.3%). Vendor shares are largest-remainder tenths and sum to 100.0. Rows are ordered by value. The 2dp labels $23.07 + $22.13 + $0.58 equal the stat $45.78.</p>
+
+  <h2>Job pipeline</h2>
+  <table>
+    <tr><th>Job type</th><th class="num">Spawned</th><th class="num">Completed</th><th class="num">Failed</th><th class="num">Cancelled</th></tr>
+    <tr><td><code>socialListeningSearchWeb</code></td><td class="num">356</td><td class="num">356</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningSearchTwitter</code></td><td class="num">357</td><td class="num">356</td><td class="num">1</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningSearchInstagram</code></td><td class="num">356</td><td class="num">356</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningSearchFacebook</code></td><td class="num">357</td><td class="num">357</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningSearchYoutube</code></td><td class="num">356</td><td class="num">356</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningSearchReddit</code></td><td class="num">356</td><td class="num">355</td><td class="num">1</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningSearchLinkedin</code></td><td class="num">356</td><td class="num">356</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningSearchTiktok</code></td><td class="num">358</td><td class="num">318</td><td class="num">40</td><td class="num">0</td></tr>
+    <tr><td><code>analyzeMentions</code></td><td class="num">2,810</td><td class="num">2,809</td><td class="num">1</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningComputeMetrics</code></td><td class="num">359</td><td class="num">359</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningBrandSync</code></td><td class="num">2</td><td class="num">2</td><td class="num">0</td><td class="num">0</td></tr>
+    <tr><td><code>socialListeningTopicSync</code></td><td class="num">2</td><td class="num">2</td><td class="num">0</td><td class="num">0</td></tr>
+  </table>
+  <p class="caption">Counts come from Mezmo <code>[MiniJob]</code> Job started / Job done / Job failed lines between 03:30 and 07:10 UTC. The same counts were returned on a later read of that closed window. Completed means cleanly completed: Job done minus the late lines. Nothing that had started was still in flight at 07:10, so completed plus failed equals spawned on every row. The columns sum to 6,025 / 5,982 / 43 / 0. Late completions are counted as failed, not completed. <code>but was already set as failed</code> is TikTok 24 and Reddit 1. Search Job done is 2,835. That equals clean completed search rows (2,810) plus those 25 late lines, with nothing left over. <code>analyzeMentions</code> spawned 2,810, which is the clean search completions, and 2,809 finished. Metrics spawned 359 and all 359 completed. Cancelled social-listening jobs were 0. Keywords the crons enqueued but whose platform search had not logged Job started by 07:10 are outside this table.</p>
+
+</div>
+</body>
+</html>
